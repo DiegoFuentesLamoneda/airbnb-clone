@@ -5,9 +5,13 @@ interface SortControlProps {
   onChange: (order: SortOrder) => void;
 }
 
+/**
+ * Etiquetas cortas a propósito: con "Precio: menor primero" el grupo se iba a
+ * ~340px y no cabía en un viewport de 375px sin scroll horizontal.
+ */
 const OPTIONS: { value: SortOrder; label: string }[] = [
-  { value: "asc", label: "Precio: menor primero" },
-  { value: "desc", label: "Precio: mayor primero" },
+  { value: "asc", label: "Menor precio" },
+  { value: "desc", label: "Mayor precio" },
 ];
 
 /**
