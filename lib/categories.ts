@@ -2,6 +2,7 @@ import type { Category } from "@/types";
 
 /** Fila de filtros bajo la navbar. El primero es el activo por defecto. */
 export const CATEGORIES: Category[] = [
+  { id: "all", label: "Todo", icon: "all" },
   { id: "trending", label: "Tendencias", icon: "trending" },
   { id: "beach", label: "Playa", icon: "beach" },
   { id: "mansion", label: "Mansiones", icon: "mansion" },

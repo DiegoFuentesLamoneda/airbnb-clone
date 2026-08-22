@@ -87,6 +87,7 @@ export interface Category {
 }
 
 export type CategoryIconName =
+  | "all"
   | "beach"
   | "mansion"
   | "trending"

@@ -5,6 +5,7 @@ import type { CategoryIconName } from "@/types";
  * que el componente quepa en unas pocas líneas. Sin librería de iconos.
  */
 const PATHS: Record<CategoryIconName, string> = {
+  all: "M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z",
   trending: "M3 17l6-6 4 4 8-8M15 7h6v6",
   beach: "M2 17c2 0 2 2 4 2s2-2 4-2 2 2 4 2 2-2 4-2M2 21c2 0 2 2 4 2M12 15V4M12 4c-4 0-7 2-8 5h16c-1-3-4-5-8-5z",
   mansion: "M3 21V9l9-6 9 6v12M9 21v-6h6v6M3 21h18",
