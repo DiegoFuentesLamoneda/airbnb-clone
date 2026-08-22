@@ -34,12 +34,14 @@ export interface Listing {
  * No usamos imágenes reales: cada "foto" es un degradado determinista más una
  * etiqueta descriptiva, suficiente para validar la arquitectura de componentes
  * sin depender de assets externos.
+ *
+ * `gradient` son clases de Tailwind (`from-* to-*`) y no colores sueltos, para
+ * no necesitar un `style` en línea al pintarlas.
  */
 export interface PhotoPlaceholder {
   id: string;
   label: string;
-  from: string;
-  to: string;
+  gradient: string;
 }
 
 export interface Host {

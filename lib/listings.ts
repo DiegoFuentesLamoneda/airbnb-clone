@@ -1,18 +1,17 @@
 import type { Listing, PhotoPlaceholder } from "@/types";
 
 /**
- * Construye los placeholders de foto de un alojamiento. Cada tripleta es
- * [etiqueta, color inicial, color final] del degradado.
+ * Construye los placeholders de foto de un alojamiento. Cada par es
+ * [etiqueta, clases de degradado de Tailwind].
  */
 const photos = (
   id: string,
-  entries: [string, string, string][],
+  entries: [string, string][],
 ): PhotoPlaceholder[] =>
-  entries.map(([label, from, to], index) => ({
+  entries.map(([label, gradient], index) => ({
     id: `${id}-${index + 1}`,
     label,
-    from,
-    to,
+    gradient,
   }));
 
 /**
@@ -32,11 +31,11 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: true,
     coordinates: { lat: 36.7452, lng: -3.8748 },
     photos: photos("casa-acantilado-nerja", [
-      ["Vista al mar desde la terraza", "#0ea5e9", "#0f172a"],
-      ["Salón con ventanales", "#f8fafc", "#94a3b8"],
-      ["Dormitorio principal", "#fef3c7", "#d97706"],
-      ["Terraza al atardecer", "#fb7185", "#7c2d12"],
-      ["Cocina abierta", "#e2e8f0", "#475569"],
+      ["Vista al mar desde la terraza", "from-sky-500 to-slate-900"],
+      ["Salón con ventanales", "from-slate-50 to-slate-400"],
+      ["Dormitorio principal", "from-amber-100 to-amber-600"],
+      ["Terraza al atardecer", "from-rose-400 to-orange-900"],
+      ["Cocina abierta", "from-slate-200 to-slate-600"],
     ]),
   },
   {
@@ -51,10 +50,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 36.5099, lng: -4.8863 },
     photos: photos("villa-miramar-marbella", [
-      ["Fachada de la villa", "#fde68a", "#b45309"],
-      ["Piscina infinita", "#38bdf8", "#0c4a6e"],
-      ["Salón de doble altura", "#f1f5f9", "#64748b"],
-      ["Jardín mediterráneo", "#4ade80", "#14532d"],
+      ["Fachada de la villa", "from-amber-200 to-amber-700"],
+      ["Piscina infinita", "from-sky-400 to-sky-900"],
+      ["Salón de doble altura", "from-slate-100 to-slate-500"],
+      ["Jardín mediterráneo", "from-green-400 to-green-900"],
     ]),
   },
   {
@@ -69,10 +68,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: true,
     coordinates: { lat: 40.4203, lng: -3.7058 },
     photos: photos("atico-vistas-madrid", [
-      ["Skyline desde el balcón", "#f97316", "#431407"],
-      ["Salón con sofá gris", "#e5e7eb", "#4b5563"],
-      ["Dormitorio luminoso", "#fef9c3", "#a16207"],
-      ["Baño reformado", "#cbd5e1", "#334155"],
+      ["Skyline desde el balcón", "from-orange-500 to-orange-950"],
+      ["Salón con sofá gris", "from-gray-200 to-gray-600"],
+      ["Dormitorio luminoso", "from-yellow-100 to-yellow-700"],
+      ["Baño reformado", "from-slate-300 to-slate-700"],
     ]),
   },
   {
@@ -87,10 +86,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: true,
     coordinates: { lat: 40.7411, lng: -4.0553 },
     photos: photos("cabana-pinos-cercedilla", [
-      ["Cabaña entre pinos", "#16a34a", "#052e16"],
-      ["Chimenea encendida", "#f59e0b", "#7c2d12"],
-      ["Dormitorio abuhardillado", "#fef3c7", "#92400e"],
-      ["Porche de madera", "#a3a3a3", "#3f3f46"],
+      ["Cabaña entre pinos", "from-green-600 to-green-950"],
+      ["Chimenea encendida", "from-amber-500 to-orange-900"],
+      ["Dormitorio abuhardillado", "from-amber-100 to-amber-800"],
+      ["Porche de madera", "from-neutral-400 to-zinc-700"],
     ]),
   },
   {
@@ -105,10 +104,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 36.7413, lng: -5.1663 },
     photos: photos("cortijo-olivar-ronda", [
-      ["Olivar al amanecer", "#84cc16", "#365314"],
-      ["Patio encalado", "#fafaf9", "#78716c"],
-      ["Salón con vigas", "#fed7aa", "#7c2d12"],
-      ["Vistas al tajo", "#60a5fa", "#1e3a8a"],
+      ["Olivar al amanecer", "from-lime-500 to-lime-900"],
+      ["Patio encalado", "from-stone-50 to-stone-500"],
+      ["Salón con vigas", "from-orange-200 to-orange-900"],
+      ["Vistas al tajo", "from-blue-400 to-blue-900"],
     ]),
   },
   {
@@ -123,10 +122,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: true,
     coordinates: { lat: 41.3851, lng: 2.1834 },
     photos: photos("loft-born-barcelona", [
-      ["Loft de ladrillo visto", "#d97706", "#451a03"],
-      ["Cocina industrial", "#e4e4e7", "#3f3f46"],
-      ["Dormitorio en altillo", "#fecdd3", "#881337"],
-      ["Calle del Born", "#fbbf24", "#78350f"],
+      ["Loft de ladrillo visto", "from-amber-600 to-amber-950"],
+      ["Cocina industrial", "from-zinc-200 to-zinc-700"],
+      ["Dormitorio en altillo", "from-rose-200 to-rose-900"],
+      ["Calle del Born", "from-amber-400 to-amber-900"],
     ]),
   },
   {
@@ -141,10 +140,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: true,
     coordinates: { lat: 36.5959, lng: -4.6374 },
     photos: photos("casa-lagar-mijas", [
-      ["Piscina privada", "#22d3ee", "#155e75"],
-      ["Porche con hamacas", "#fde68a", "#a16207"],
-      ["Salón abierto al jardín", "#f5f5f4", "#57534e"],
-      ["Dormitorio con terraza", "#e0f2fe", "#0369a1"],
+      ["Piscina privada", "from-cyan-400 to-cyan-800"],
+      ["Porche con hamacas", "from-amber-200 to-amber-700"],
+      ["Salón abierto al jardín", "from-stone-100 to-stone-600"],
+      ["Dormitorio con terraza", "from-sky-100 to-sky-700"],
     ]),
   },
   {
@@ -159,10 +158,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: true,
     coordinates: { lat: 42.1194, lng: -6.7042 },
     photos: photos("refugio-lago-sanabria", [
-      ["Lago al amanecer", "#38bdf8", "#0f172a"],
-      ["Embarcadero de madera", "#a8a29e", "#292524"],
-      ["Salón con estufa", "#fbbf24", "#78350f"],
-      ["Bosque de robles", "#4ade80", "#14532d"],
+      ["Lago al amanecer", "from-sky-400 to-slate-900"],
+      ["Embarcadero de madera", "from-stone-400 to-stone-800"],
+      ["Salón con estufa", "from-amber-400 to-amber-900"],
+      ["Bosque de robles", "from-green-400 to-green-900"],
     ]),
   },
   {
@@ -177,10 +176,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 37.3833, lng: -6.0025 },
     photos: photos("apartamento-triana-sevilla", [
-      ["Balcón sobre el Guadalquivir", "#fb923c", "#7c2d12"],
-      ["Salón con azulejos", "#bae6fd", "#075985"],
-      ["Dormitorio blanco", "#fafafa", "#71717a"],
-      ["Puente de Triana", "#facc15", "#713f12"],
+      ["Balcón sobre el Guadalquivir", "from-orange-400 to-orange-900"],
+      ["Salón con azulejos", "from-sky-200 to-sky-800"],
+      ["Dormitorio blanco", "from-neutral-50 to-zinc-500"],
+      ["Puente de Triana", "from-yellow-400 to-yellow-900"],
     ]),
   },
   {
@@ -195,10 +194,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 43.5622, lng: -6.1447 },
     photos: photos("casa-piedra-cudillero", [
-      ["Puerto de Cudillero", "#38bdf8", "#164e63"],
-      ["Muros de piedra", "#d6d3d1", "#44403c"],
-      ["Cocina con leña", "#fed7aa", "#7c2d12"],
-      ["Acantilados verdes", "#22c55e", "#14532d"],
+      ["Puerto de Cudillero", "from-sky-400 to-cyan-900"],
+      ["Muros de piedra", "from-stone-300 to-stone-700"],
+      ["Cocina con leña", "from-orange-200 to-orange-900"],
+      ["Acantilados verdes", "from-green-500 to-green-900"],
     ]),
   },
   {
@@ -213,10 +212,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 38.9067, lng: 1.4206 },
     photos: photos("villa-sa-punta-ibiza", [
-      ["Villa blanca sobre el mar", "#f8fafc", "#0ea5e9"],
-      ["Piscina al atardecer", "#f472b6", "#701a75"],
-      ["Chill out exterior", "#fdba74", "#7c2d12"],
-      ["Suite principal", "#e2e8f0", "#475569"],
+      ["Villa blanca sobre el mar", "from-slate-50 to-sky-500"],
+      ["Piscina al atardecer", "from-pink-400 to-fuchsia-900"],
+      ["Chill out exterior", "from-orange-300 to-orange-900"],
+      ["Suite principal", "from-slate-200 to-slate-600"],
     ]),
   },
   {
@@ -231,10 +230,10 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 27.7606, lng: -15.586 },
     photos: photos("estudio-playa-gran-canaria", [
-      ["Dunas de Maspalomas", "#fcd34d", "#92400e"],
-      ["Estudio compacto", "#f4f4f5", "#52525b"],
-      ["Terraza con vistas", "#7dd3fc", "#0c4a6e"],
-      ["Paseo marítimo", "#fb7185", "#881337"],
+      ["Dunas de Maspalomas", "from-amber-300 to-amber-800"],
+      ["Estudio compacto", "from-zinc-100 to-zinc-600"],
+      ["Terraza con vistas", "from-sky-300 to-sky-900"],
+      ["Paseo marítimo", "from-rose-400 to-rose-900"],
     ]),
   },
 ];
