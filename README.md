@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Clon de la interfaz de Airbnb
 
-## Getting Started
+Tres vistas de la experiencia de Airbnb implementadas con Next.js 16, React 19,
+TypeScript y Tailwind CSS 4. Sin librerías de componentes: todo son componentes
+propios y clases de utilidad.
 
-First, run the development server:
+El brief del proyecto —qué hace cada página, quién es el usuario, de qué
+componentes se compone y qué se sacó de cada captura de referencia— está en
+**[`context.md`](context.md)**.
+
+## Arrancar
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Rutas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Ruta | Qué es |
+|---|---|
+| `/` | Portada: buscador en vivo, filtros por categoría y cuadrícula de alojamientos |
+| `/catalog` | Catálogo: recuento, orden por precio y mapa con un pin por alojamiento |
+| `/rooms/[id]` | Detalle: galería, cabecera, anfitrión, servicios y tarjeta de reserva |
 
-## Learn More
+## Estructura
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/            Rutas del App Router
+components/     UI reutilizable, agrupada por vista
+  layout/         navbar, logo, buscador, menú de usuario
+  listings/       tarjeta y cuadrícula de alojamientos
+  home/           filtros por categoría
+  catalog/        cabecera de resultados, orden y mapa
+  room/           las secciones de la vista de detalle
+  ui/             primitivas compartidas (iconos, valoración, placeholders)
+lib/            Datos simulados y funciones de filtrado y orden
+types/          Interfaces de TypeScript
+design-refs/    Capturas de Airbnb usadas para derivar las especificaciones
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notas de implementación
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Mobile-first**: las clases sin prefijo describen los 375 px; `md:` y `lg:`
+  sólo añaden.
+- **Sin imágenes reales**: cada foto es un degradado determinista con etiqueta.
+  Los degradados se guardan como clases de Tailwind y no como colores, para no
+  necesitar ningún `style` en línea.
+- **Carga simulada**: la portada y el detalle fingen latencia de red con
+  `setTimeout` dentro de `useEffect`, con estado de carga visible.
+- **Mapa real** con react-leaflet y teselas de OpenStreetMap, cargado con
+  `dynamic(..., { ssr: false })` porque Leaflet necesita `window`.
