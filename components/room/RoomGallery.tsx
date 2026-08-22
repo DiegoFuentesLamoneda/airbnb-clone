@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { PhotoPlaceholder as Photo } from "@/types";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
+import type { Photo } from "@/types";
+import ListingPhoto from "@/components/ui/ListingPhoto";
 
 interface RoomGalleryProps {
   photos: Photo[];
@@ -27,9 +27,11 @@ const RoomGallery = ({ photos }: RoomGalleryProps) => {
 
   return (
     <div className="relative aspect-[4/3] w-full overflow-hidden md:aspect-[16/9] md:rounded-2xl">
-      <PhotoPlaceholder
+      <ListingPhoto
         photo={photos[index]}
         showLabel
+        priority
+        sizes="(min-width: 768px) 1120px, 100vw"
         className="h-full w-full"
       />
 

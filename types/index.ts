@@ -26,22 +26,27 @@ export interface Listing {
   availability: string;
   isGuestFavorite: boolean;
   coordinates: Coordinates;
-  /** Placeholders de foto: cada entrada es un par de colores para el degradado. */
-  photos: PhotoPlaceholder[];
+  /** Fotos del alojamiento. La primera es la que sale en la tarjeta. */
+  photos: Photo[];
 }
 
 /**
- * No usamos imágenes reales: cada "foto" es un degradado determinista más una
- * etiqueta descriptiva, suficiente para validar la arquitectura de componentes
- * sin depender de assets externos.
+ * Una foto de un alojamiento.
  *
- * `gradient` son clases de Tailwind (`from-* to-*`) y no colores sueltos, para
- * no necesitar un `style` en línea al pintarlas.
+ * El degradado no es decorativo: se pinta debajo de la imagen y es lo que se ve
+ * mientras el archivo carga, en vez de un rectángulo blanco. Son clases de
+ * Tailwind (`from-* to-*`) y no colores sueltos, para no necesitar un `style`
+ * en línea al pintarlas.
  */
-export interface PhotoPlaceholder {
+export interface Photo {
   id: string;
   label: string;
   gradient: string;
+  /**
+   * Ruta del archivo en `/public`. Puede faltar: un hueco sin foto todavía se
+   * queda con su degradado en lugar de romper la vista.
+   */
+  src?: string;
 }
 
 export interface Host {

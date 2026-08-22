@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Listing } from "@/types";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
+import ListingPhoto from "@/components/ui/ListingPhoto";
 import StarRating from "@/components/ui/StarRating";
 
 interface ListingCardProps {
@@ -17,9 +17,10 @@ interface ListingCardProps {
 const ListingCard = ({ listing }: ListingCardProps) => (
   <Link href={`/rooms/${listing.id}`} className="group block">
     <div className="relative">
-      <PhotoPlaceholder
+      <ListingPhoto
         photo={listing.photos[0]}
-        className="aspect-square w-full overflow-hidden rounded-xl transition group-hover:brightness-95"
+        sizes="(min-width: 1280px) 22vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
+        className="aspect-square w-full rounded-xl transition group-hover:brightness-95"
       />
 
       {listing.isGuestFavorite && (

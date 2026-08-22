@@ -45,9 +45,11 @@ design-refs/    Capturas de Airbnb usadas para derivar las especificaciones
 
 - **Mobile-first**: las clases sin prefijo describen los 375 px; `md:` y `lg:`
   sólo añaden.
-- **Sin imágenes reales**: cada foto es un degradado determinista con etiqueta.
-  Los degradados se guardan como clases de Tailwind y no como colores, para no
-  necesitar ningún `style` en línea.
+- **Fotos de Unsplash** descargadas a `public/photos/` con
+  `scripts/fetch-photos.mjs`, así que la app no depende de ningún servicio
+  externo al ejecutarse. Créditos en `public/photos/CREDITS.md`. Debajo de cada
+  imagen queda un degradado en clases de Tailwind, que es lo que se ve mientras
+  la foto carga.
 - **Carga simulada**: la portada y el detalle fingen latencia de red con
   `setTimeout` dentro de `useEffect`, con estado de carga visible.
 - **Mapa real** con react-leaflet y teselas de OpenStreetMap, cargado con

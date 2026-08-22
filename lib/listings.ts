@@ -1,18 +1,26 @@
-import type { Listing, PhotoPlaceholder } from "@/types";
+import type { Listing, Photo } from "@/types";
 
 /**
- * Construye los placeholders de foto de un alojamiento. Cada par es
- * [etiqueta, clases de degradado de Tailwind].
+ * Construye las fotos de un alojamiento. Cada entrada es
+ * [etiqueta, clases de degradado] y, opcionalmente, `false` para marcar un
+ * hueco que todavia no tiene archivo de imagen.
+ *
+ * `src` se deriva del id en vez de escribirse a mano: el script de descarga
+ * nombra los archivos con ese mismo patron, asi que no pueden desincronizarse.
  */
 const photos = (
   id: string,
-  entries: [string, string][],
-): PhotoPlaceholder[] =>
-  entries.map(([label, gradient], index) => ({
-    id: `${id}-${index + 1}`,
-    label,
-    gradient,
-  }));
+  entries: [string, string, boolean?][],
+): Photo[] =>
+  entries.map(([label, gradient, hasFile = true], index) => {
+    const photoId = `${id}-${index + 1}`;
+    return {
+      id: photoId,
+      label,
+      gradient,
+      src: hasFile ? `/photos/${photoId}.jpg` : undefined,
+    };
+  });
 
 /**
  * Datos simulados. En un proyecto real esto llegaría de una API; aquí se sirve
@@ -177,7 +185,8 @@ export const LISTINGS: Listing[] = [
     coordinates: { lat: 37.3833, lng: -6.0025 },
     photos: photos("apartamento-triana-sevilla", [
       ["Balcón sobre el Guadalquivir", "from-orange-400 to-orange-900"],
-      ["Salón con azulejos", "from-sky-200 to-sky-800"],
+      // Pendiente: la cuota de Unsplash corto antes de resolver esta.
+      ["Salón con azulejos", "from-sky-200 to-sky-800", false],
       ["Dormitorio blanco", "from-neutral-50 to-zinc-500"],
       ["Puente de Triana", "from-yellow-400 to-yellow-900"],
     ]),
@@ -212,7 +221,8 @@ export const LISTINGS: Listing[] = [
     isGuestFavorite: false,
     coordinates: { lat: 38.9067, lng: 1.4206 },
     photos: photos("villa-sa-punta-ibiza", [
-      ["Villa blanca sobre el mar", "from-slate-50 to-sky-500"],
+      // Pendiente: la cuota de Unsplash corto antes de resolver esta.
+      ["Villa blanca sobre el mar", "from-slate-50 to-sky-500", false],
       ["Piscina al atardecer", "from-pink-400 to-fuchsia-900"],
       ["Chill out exterior", "from-orange-300 to-orange-900"],
       ["Suite principal", "from-slate-200 to-slate-600"],

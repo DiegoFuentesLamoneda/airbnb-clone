@@ -25,7 +25,7 @@ const CACHE_FILE = path.join(ROOT, "scripts", ".photo-cache.json");
  */
 const QUERIES = {
   "casa-acantilado-nerja-1": "sea view terrace mediterranean house",
-  "casa-acantilado-nerja-2": "living room large windows bright",
+  "casa-acantilado-nerja-2": "living room sofa big window sea view",
   "casa-acantilado-nerja-3": "bedroom white linen coastal",
   "casa-acantilado-nerja-4": "terrace sunset sea",
   "casa-acantilado-nerja-5": "open kitchen modern white",
@@ -52,11 +52,11 @@ const QUERIES = {
 
   "loft-born-barcelona-1": "brick loft interior",
   "loft-born-barcelona-2": "industrial kitchen loft",
-  "loft-born-barcelona-3": "mezzanine bedroom loft",
+  "loft-born-barcelona-3": "loft bedroom wooden beams apartment",
   "loft-born-barcelona-4": "barcelona old town street",
 
   "casa-lagar-mijas-1": "private pool villa spain",
-  "casa-lagar-mijas-2": "porch hammock summer garden",
+  "casa-lagar-mijas-2": "hammock terrace garden house summer",
   "casa-lagar-mijas-3": "living room open to garden",
   "casa-lagar-mijas-4": "bedroom with terrace view",
 
@@ -66,8 +66,8 @@ const QUERIES = {
   "refugio-lago-sanabria-4": "oak forest green",
 
   "apartamento-triana-sevilla-1": "seville river balcony",
-  "apartamento-triana-sevilla-2": "spanish tiles interior room",
-  "apartamento-triana-sevilla-3": "white bedroom minimal",
+  "apartamento-triana-sevilla-2": "colourful ceramic tiles wall andalusia",
+  "apartamento-triana-sevilla-3": "bedroom bed white pillows sunlight",
   "apartamento-triana-sevilla-4": "triana bridge seville",
 
   "casa-piedra-cudillero-1": "asturias fishing village harbour",
@@ -75,16 +75,29 @@ const QUERIES = {
   "casa-piedra-cudillero-3": "rustic kitchen wood",
   "casa-piedra-cudillero-4": "green cliffs atlantic coast",
 
-  "villa-sa-punta-ibiza-1": "white villa ibiza sea",
+  "villa-sa-punta-ibiza-1": "white mediterranean house cliff sea",
   "villa-sa-punta-ibiza-2": "swimming pool sunset villa",
   "villa-sa-punta-ibiza-3": "outdoor lounge terrace summer",
   "villa-sa-punta-ibiza-4": "master suite luxury bedroom",
 
   "estudio-playa-gran-canaria-1": "maspalomas dunes gran canaria",
   "estudio-playa-gran-canaria-2": "small studio apartment interior",
-  "estudio-playa-gran-canaria-3": "balcony sea view apartment",
+  "estudio-playa-gran-canaria-3": "balcony chairs ocean view sunny",
   "estudio-playa-gran-canaria-4": "seaside promenade sunset",
 };
+
+/**
+ * Huecos cuya primera foto no servia: la busqueda pedia un concepto y Unsplash
+ * devolvio la interpretacion artistica en vez del objeto. Al arrancar se borran
+ * su entrada de cache y su archivo, para que se vuelvan a resolver con la
+ * busqueda corregida de arriba.
+ */
+const REDO = [
+  "apartamento-triana-sevilla-3",
+  "casa-acantilado-nerja-2",
+  "casa-lagar-mijas-2",
+  "estudio-playa-gran-canaria-3",
+];
 
 const readKey = async () => {
   const env = await fs.readFile(path.join(ROOT, ".env.local"), "utf8");
@@ -130,6 +143,13 @@ const main = async () => {
   const key = await readKey();
   const cache = await readCache();
   await fs.mkdir(PHOTOS_DIR, { recursive: true });
+
+  for (const photoId of REDO) {
+    if (!cache[photoId]) continue;
+    delete cache[photoId];
+    await fs.rm(path.join(PHOTOS_DIR, `${photoId}.jpg`), { force: true });
+    console.log(`rehacer  ${photoId}`);
+  }
 
   const entries = Object.entries(QUERIES);
   const usedIds = new Set(Object.values(cache).map((p) => p.id));

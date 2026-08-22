@@ -95,7 +95,7 @@ crecía, se ha partido.
 | `UserMenu` | Hamburguesa y avatar de la derecha. |
 | `ListingCard` | La tarjeta de alojamiento. **Se reutiliza en portada y catálogo.** |
 | `ListingGrid` | Coloca las tarjetas y resuelve el caso de lista vacía. |
-| `PhotoPlaceholder` | El hueco de foto (degradado + etiqueta). No hay imágenes reales. |
+| `ListingPhoto` | Una foto: imagen con `next/image` sobre su degradado de carga. |
 | `StarRating` | Estrella + nota, con recuento de reseñas opcional. |
 | `CategoryIcon` / `AmenityIcon` | SVG en línea por clave. Sin librería de iconos. |
 | `LoadingGrid` | Esqueletos con la forma de las tarjetas mientras cargan los datos. |
@@ -150,9 +150,14 @@ La herencia es deliberada: la tarjeta se reutiliza en tres sitios y no debe
 arrastrar datos que no pinta. Un `Room` **es** un `Listing`, así que se le puede
 pasar a `ListingCard` sin conversiones.
 
-Los datos son simulados y viven en [`lib/`](lib/). Las fotos no son imágenes:
-cada una es un degradado determinista con una etiqueta descriptiva, suficiente
-para validar la arquitectura de componentes sin depender de assets externos.
+Los datos son simulados y viven en [`lib/`](lib/). Las fotos sí son reales:
+vienen de Unsplash, se descargaron una vez con
+[`scripts/fetch-photos.mjs`](scripts/fetch-photos.mjs) y viven en
+`public/photos/` — el repo no depende de ningún servicio externo en tiempo de
+ejecución. Cada foto conserva además su degradado, que se pinta debajo y es lo
+que se ve mientras el archivo carga. Un hueco sin archivo se queda con el
+degradado en lugar de romper la vista. La atribución está en
+`public/photos/CREDITS.md`, como pide la licencia de Unsplash.
 
 ---
 
